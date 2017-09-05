@@ -1,10 +1,10 @@
-<label for="num-of-rows">Number of rows:</label>
+<label for="num-of-rows" class="first">Number of rows:</label>
 <input type="number" id="num-of-rows" #numOfRowsUserInput [value]="numOfRows">
 <br />
-<label for="num-of-col">Number of columns:</label>
+<label for="num-of-col" class="second">Number of columns:</label>
 <input type="number" id="num-of-col" #numOfColsUserInput [value]="numOfCols">
 <br />
-<label for="num-of-mines-in-table">Number of mines in table:</label>
+<label for="num-of-mines-in-table" class="third">Number of mines in table:</label>
 <input type="number" id="num-of-mines-in-table" #numOfMinesInTableUserInput [value]="numOfMinesInTable">
 <span *ngIf="uiTooMuchMinesShowWarning" style="color:red">
     This much mines!
@@ -22,13 +22,13 @@
 
 <span *ngIf="gameOver" style="color:red;">You stepped onto mine!</span>
 
-<table style="table-layout: fixed;" style="cursor:pointer">
+<table style="table-layout: fixed;" style="cursor:pointer" class="table">
     <tr *ngFor="let row of mineTableContent; let rowIndex = index">
         <td *ngFor="let column of row; let colIndex = index" style="width: 18px;">
             <span *ngIf="mineTableVisibility[rowIndex][colIndex] == 0; else showMineTableContent"
-                (click)="revealCellAndContentAround(rowIndex, colIndex)" style="font-weight:bold;">x</span>
+                (click)="revealCellAndContentAround(rowIndex, colIndex)" style="font-weight:bold;">&#9729;</span>
             <ng-template #showMineTableContent>
-                <span *ngIf="mineTableContent[rowIndex][colIndex] == mineLabel; else showMineTableValue">*</span>
+                <span *ngIf="mineTableContent[rowIndex][colIndex] == mineLabel; else showMineTableValue">&#9728;</span>
                 <ng-template #showMineTableValue>{{mineTableContent[rowIndex][colIndex]}}</ng-template>
             </ng-template>
         </td>
