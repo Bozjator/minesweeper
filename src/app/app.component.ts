@@ -118,10 +118,6 @@ export class AppComponent {
           continue;
         }
 
-        // Mine counter variable is of type array so that we can pass this variable to method isMineInGivenCell() by
-        // reference (instead of as a value). This way we can change its value inside the method.
-        let currentCellMinesCounter: number[] = [];
-        currentCellMinesCounter[0] = 0;
         let minesCounter: number = 0;
 
         // Top left cell from current cell.
@@ -142,7 +138,7 @@ export class AppComponent {
         minesCounter += this.checkIfCellContainsMine(rowIndex, colIndex + 1) ? 1 : 0;
 
         // Mines around current cell is now counted so save that number into current mine table cell.
-        this.mineTableContent[rowIndex][colIndex] = currentCellMinesCounter[0];
+        this.mineTableContent[rowIndex][colIndex] = minesCounter;
       }
     }
   }
