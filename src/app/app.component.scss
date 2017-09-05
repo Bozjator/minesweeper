@@ -1,0 +1,39 @@
+.page-content {
+}
+
+.game-menu {
+    width: 300px;
+    line-height: 15px;
+
+    input[type=number] {
+        width: 64px;
+        height: 16px;
+        text-align: center;
+    }
+
+    .game-menu-warning {
+        color: #D91616;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .button-create-table {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .game-menu-input-box {
+        margin: 8px;
+    }
+
+    .button-reveal-table {
+
+    }
+}
+
+.mines-table {
+}
