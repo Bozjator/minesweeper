@@ -1,36 +1,54 @@
-<label for="num-of-rows">Number of rows:</label>
-<input type="number" id="num-of-rows" #numOfRowsUserInput [value]="numOfRows">
-<br />
-<label for="num-of-col">Number of columns:</label>
-<input type="number" id="num-of-col" #numOfColsUserInput [value]="numOfCols">
-<br />
-<label for="num-of-mines-in-table">Number of mines in table:</label>
-<input type="number" id="num-of-mines-in-table" #numOfMinesInTableUserInput [value]="numOfMinesInTable">
-<span *ngIf="uiTooMuchMinesShowWarning" style="color:red">
-    This much mines!
-</span>
-<br />
-<button 
-(click)="createTableFromUserInput(numOfRowsUserInput.value, numOfColsUserInput.value, numOfMinesInTableUserInput.value)">
-    Create table
-</button>
+<div class="game-menu">
+    <div class="game-menu-input-box">
+        <label>&nbsp;rows</label><br />
+        <input type="text" #numOfRowsUserInput [value]="numOfRows" (input)="onlyNumbersInput(numOfRowsUserInput, 100)" />
+    </div>
 
-<button 
-(click)="revealMineTable()">
-    Reveal table
-</button>
+    <div class="game-menu-input-box">
+        <label>&nbsp;columns</label><br />
+        <input type="text" #numOfColsUserInput [value]="numOfCols" (input)="onlyNumbersInput(numOfColsUserInput, 100)" />
+    </div>
 
-<span *ngIf="gameOver" style="color:red;">You stepped onto mine!</span>
+    <div class="game-menu-input-box">
+        <label>&nbsp;mines</label><br />
+        <input type="text" #numOfMinesInTableUserInput [value]="numOfMinesInTable" (input)="onlyNumbersInput(numOfMinesInTableUserInput, 50)">
+    </div>
 
-<table style="table-layout: fixed;" style="cursor:pointer">
-    <tr *ngFor="let row of mineTableContent; let rowIndex = index">
-        <td *ngFor="let column of row; let colIndex = index" style="width: 18px;">
-            <span *ngIf="mineTableVisibility[rowIndex][colIndex] == 0; else showMineTableContent"
-                (click)="revealCellAndContentAround(rowIndex, colIndex)" style="font-weight:bold;">x</span>
-            <ng-template #showMineTableContent>
-                <span *ngIf="mineTableContent[rowIndex][colIndex] == mineLabel; else showMineTableValue">*</span>
-                <ng-template #showMineTableValue>{{mineTableContent[rowIndex][colIndex]}}</ng-template>
-            </ng-template>
-        </td>
-    </tr>
-</table>
+    <div class="game-menu-input-box">
+        <div class="game-menu-warning">
+            <ng-container *ngIf="uiTooMuchMinesShowWarning">Too much mines!</ng-container>
+        </div>
+        <button class="button-create-table" (click)="createTableFromUserInput(numOfRowsUserInput.value, numOfColsUserInput.value, numOfMinesInTableUserInput.value)">
+            Start game
+        </button>
+        <button class="button-reveal-table" (click)="revealMineTable()" title="Reveale table">&#9732;</button>
+    </div>
+</div>
+
+<div class="game-finished-message">
+    &nbsp;
+    <span *ngIf="gameOver" class="game-over-message">You stepped on a mine!</span>
+    <span *ngIf="gameSucessfullyFinished" class="game-sucessfully-finished-message">You sucessfuly found all mines!</span>
+</div>
+
+<div class="mines-table">
+    <div *ngFor="let row of mineTableContent; let rowIndex = index" class="table-row">
+        <div *ngFor="let column of row; let colIndex = index" 
+                (click)="revealCellAndContentAround(rowIndex, colIndex)" 
+                class="table-col"
+                [class.table-cell-closed]="mineTableVisibility[rowIndex][colIndex] == 0" 
+                [class.table-cell-opened]="mineTableVisibility[rowIndex][colIndex] != 0">
+            <ng-container *ngIf="mineTableVisibility[rowIndex][colIndex] != 0">
+                <ng-template [ngIf]="mineTableContent[rowIndex][colIndex] == mineLabel">
+                    &#10057;
+                </ng-template>
+                <span *ngIf="mineTableContent[rowIndex][colIndex] > 0"
+                    [class.table-cell-number-one]="mineTableContent[rowIndex][colIndex] == 1"
+                    [class.table-cell-number-two]="mineTableContent[rowIndex][colIndex] == 2"
+                    [class.table-cell-number-big]="mineTableContent[rowIndex][colIndex] >= 3">
+                    {{mineTableContent[rowIndex][colIndex]}}
+                </span>
+            </ng-container>
+        </div>
+    </div>
+</div>

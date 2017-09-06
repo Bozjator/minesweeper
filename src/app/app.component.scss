@@ -1,0 +1,105 @@
+.game-menu {
+    line-height: 15px;
+    padding-left: 5px;
+    padding-bottom: 10px;
+    background-color: #FAFAFA;
+    border-bottom: 1px solid #908E8E;
+}
+
+.game-menu-input-box {
+    display: inline-block;
+    margin: 8px;
+}
+
+input[type=text] {
+    width: 50px;
+    height: 16px;
+    text-align: center;
+}
+
+.game-menu-warning {
+    height: 17px;
+    color: #D91616;
+    font-weight: bold;
+}
+
+.game-finished-message {
+    font-weight: bold;
+    margin: 6px;
+    margin-top: 10px;
+}
+
+.game-over-message {
+    color: #D91616;
+}
+
+.game-sucessfully-finished-message {
+    color: #21C138;
+}
+
+.button-create-table {
+    background-color: #4CAF50;
+    color: white;
+    margin-left: 5px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button-reveal-table {
+    @extend .button-create-table;
+    opacity: 0.7;
+    padding: 4px 7px;
+    padding-left: 9px;
+    margin-left: 5px;
+    margin-bottom: 2px;
+    vertical-align: bottom;
+}
+
+.button-reveal-table:hover {
+    opacity: 1;
+}
+
+.mines-table {
+    margin-left: 27px;
+    display: inline-block;
+    border: 2px solid #99A39E;
+}
+
+.table-row {
+    display: table-row;
+    padding: 0;
+}
+
+.table-col {
+    display: table-cell;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+    cursor: pointer;
+    border: 1px solid #908E8E;
+}
+
+.table-cell-closed {
+    background-color: #B3BAB3;
+}
+
+.table-cell-opened {
+    background-color: #DDE3DD;
+}
+
+.table-cell-number-one {
+    color: #5D62E2;
+}
+
+.table-cell-number-two {
+    color: #53D866;
+}
+
+.table-cell-number-big {
+    color: #DCB251;
+}
