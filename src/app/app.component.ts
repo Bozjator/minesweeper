@@ -11,7 +11,7 @@ export class AppComponent {
   private numOfCols: number = 10;
   private mineTableContent: any[];
   private mineTableVisibility: any[];
-  private numOfMinesInTable = 15;
+  private numOfMinesInTable = 10;
   private mineLabel: number = -1;
   private gameOver: boolean;
 
@@ -196,6 +196,12 @@ export class AppComponent {
         this.mineTableVisibility[rowIndex][colIndex] = 1;
       }
     }
+  }
+
+  onlyNumbersInput(inputField: any, maxNumber: number) {
+    inputField.value = inputField.value.replace(/[^0-9]/g, '');
+    if(inputField.value >= maxNumber)
+      inputField.value = maxNumber;
   }
 
 }

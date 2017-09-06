@@ -1,49 +1,53 @@
-<div class="page-content">
+<div class="game-menu">
+    <div class="game-menu-input-box">
+        <label>&nbsp;rows</label><br />
+        <input type="text" #numOfRowsUserInput [value]="numOfRows" (input)="onlyNumbersInput(numOfRowsUserInput, 100)" />
+    </div>
 
-    <div class="game-menu">
-        <div class="game-menu-input-box">
-            <label>rows</label><br />
-            <input type="number" #numOfRowsUserInput [value]="numOfRows" min="5" max="100" onkeydown="return false">
+    <div class="game-menu-input-box">
+        <label>&nbsp;columns</label><br />
+        <input type="text" #numOfColsUserInput [value]="numOfCols" (input)="onlyNumbersInput(numOfColsUserInput, 100)" />
+    </div>
+
+    <div class="game-menu-input-box">
+        <label>&nbsp;mines</label><br />
+        <input type="text" #numOfMinesInTableUserInput [value]="numOfMinesInTable" (input)="onlyNumbersInput(numOfMinesInTableUserInput, 50)">
+    </div>
+
+    <div class="game-menu-input-box">
+        <div class="game-menu-warning">
+            <ng-container *ngIf="uiTooMuchMinesShowWarning">Too much mines!</ng-container>
         </div>
-
-        <div class="game-menu-input-box">
-            <label>columns</label><br />
-            <input type="number" #numOfColsUserInput [value]="numOfCols" min="5" max="100" onkeydown="return false">
-        </div>
-
-        <div class="game-menu-input-box">
-            <label>mines</label><br />
-            <input type="number" #numOfMinesInTableUserInput [value]="numOfMinesInTable" min="1" max="100" onkeydown="return false">
-        </div>
-
-        <div *ngIf="uiTooMuchMinesShowWarning" class="game-menu-warning">
-            Too much mines!
-        </div>
-
-        <button 
-            class="button-create-table"
-            (click)="createTableFromUserInput(numOfRowsUserInput.value, numOfColsUserInput.value, numOfMinesInTableUserInput.value)">
-            Create table
+        <button class="button-create-table" (click)="createTableFromUserInput(numOfRowsUserInput.value, numOfColsUserInput.value, numOfMinesInTableUserInput.value)">
+            Start game
         </button>
+        <button class="button-reveal-table" (click)="revealMineTable()" title="Reveale table">&#9732;</button>
     </div>
+</div>
 
-    <div>
-        <button class="button-reveal-table" (click)="revealMineTable()">&#9732;</button>
-        <span *ngIf="gameOver" style="color:red;">You stepped onto mine!</span>
-    </div>
+<div class="game-over-message">
+    &nbsp;
+    <span *ngIf="gameOver">You stepped on a mine!</span>
+</div>
 
-    <div class="mines-table">
-        <table style="table-layout: fixed;" style="cursor:pointer">
-            <tr *ngFor="let row of mineTableContent; let rowIndex = index">
-                <td *ngFor="let column of row; let colIndex = index" style="width: 18px;">
-                    <span *ngIf="mineTableVisibility[rowIndex][colIndex] == 0; else showMineTableContent" (click)="revealCellAndContentAround(rowIndex, colIndex)"
-                        style="font-weight:bold;">x</span>
-                    <ng-template #showMineTableContent>
-                        <span *ngIf="mineTableContent[rowIndex][colIndex] == mineLabel; else showMineTableValue">*</span>
-                        <ng-template #showMineTableValue>{{mineTableContent[rowIndex][colIndex]}}</ng-template>
-                    </ng-template>
-                </td>
-            </tr>
-        </table>
+<div class="mines-table">
+    <div *ngFor="let row of mineTableContent; let rowIndex = index" class="table-row">
+        <div *ngFor="let column of row; let colIndex = index" 
+                (click)="revealCellAndContentAround(rowIndex, colIndex)" 
+                class="table-col"
+                [class.table-cell-closed]="mineTableVisibility[rowIndex][colIndex] == 0" 
+                [class.table-cell-opened]="mineTableVisibility[rowIndex][colIndex] != 0">
+            <ng-container *ngIf="mineTableVisibility[rowIndex][colIndex] != 0">
+                <ng-template [ngIf]="mineTableContent[rowIndex][colIndex] == mineLabel">
+                    &#10057;
+                </ng-template>
+                <span *ngIf="mineTableContent[rowIndex][colIndex] > 0"
+                    [class.table-cell-number-one]="mineTableContent[rowIndex][colIndex] == 1"
+                    [class.table-cell-number-two]="mineTableContent[rowIndex][colIndex] == 2"
+                    [class.table-cell-number-big]="mineTableContent[rowIndex][colIndex] >= 3">
+                    {{mineTableContent[rowIndex][colIndex]}}
+                </span>
+            </ng-container>
+        </div>
     </div>
 </div>
