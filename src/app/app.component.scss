@@ -23,11 +23,18 @@ input[type=text] {
     font-weight: bold;
 }
 
-.game-over-message {
-    color: #D91616;
+.game-finished-message {
     font-weight: bold;
     margin: 6px;
     margin-top: 10px;
+}
+
+.game-over-message {
+    color: #D91616;
+}
+
+.game-sucessfully-finished-message {
+    color: #21C138;
 }
 
 .button-create-table {

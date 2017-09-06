@@ -25,9 +25,10 @@
     </div>
 </div>
 
-<div class="game-over-message">
+<div class="game-finished-message">
     &nbsp;
-    <span *ngIf="gameOver">You stepped on a mine!</span>
+    <span *ngIf="gameOver" class="game-over-message">You stepped on a mine!</span>
+    <span *ngIf="gameSucessfullyFinished" class="game-sucessfully-finished-message">You sucessfuly found all mines!</span>
 </div>
 
 <div class="mines-table">
