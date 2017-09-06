@@ -21,7 +21,7 @@
         <button class="button-create-table" (click)="createTableFromUserInput(numOfRowsUserInput.value, numOfColsUserInput.value, numOfMinesInTableUserInput.value)">
             Start game
         </button>
-        <button class="button-reveal-table" (click)="revealMineTable()" title="Reveale table">&#9732;</button>
+        <button class="button-reveal-table" (mousedown)="revealTable = true" (mouseup)="revealTable = false" title="Reveale table">&#9732;</button>
     </div>
 </div>
 
@@ -37,8 +37,8 @@
                 (click)="revealCellAndContentAround(rowIndex, colIndex)" 
                 class="table-col"
                 [class.table-cell-closed]="mineTableVisibility[rowIndex][colIndex] == 0" 
-                [class.table-cell-opened]="mineTableVisibility[rowIndex][colIndex] != 0">
-            <ng-container *ngIf="mineTableVisibility[rowIndex][colIndex] != 0">
+                [class.table-cell-opened]="mineTableVisibility[rowIndex][colIndex] != 0 || revealTable">
+            <ng-container *ngIf="mineTableVisibility[rowIndex][colIndex] != 0 || revealTable">
                 <ng-template [ngIf]="mineTableContent[rowIndex][colIndex] == mineLabel">
                     &#10057;
                 </ng-template>
