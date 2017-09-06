@@ -224,6 +224,7 @@ export class AppComponent {
 
     if(numberOfClosedCells == this.numOfMinesInTable) {
       this.gameSucessfullyFinished = true;
+      this.revealMineTable();
     }
   }
 
