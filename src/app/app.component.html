@@ -21,6 +21,7 @@
 </button>
 
 <span *ngIf="gameOver" style="color:red;">You stepped onto mine!</span>
+<span *ngIf="gameSucessfullyFinished" style="color:green;">You sucessfuly found all mines!</span>
 
 <table style="table-layout: fixed;" style="cursor:pointer">
     <tr *ngFor="let row of mineTableContent; let rowIndex = index">

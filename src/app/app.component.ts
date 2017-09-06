@@ -14,6 +14,7 @@ export class AppComponent {
   private numOfMinesInTable = 15;
   private mineLabel: number = -1;
   private gameOver: boolean;
+  private gameSucessfullyFinished: boolean;
 
   private uiTooMuchMinesShowWarning: boolean = false;
 
@@ -24,6 +25,7 @@ export class AppComponent {
   startGame(): void {
     this.initMineTable();
     this.gameOver = false;
+    this.gameSucessfullyFinished = false;
   }
 
   initMineTable(): void {
@@ -145,7 +147,7 @@ export class AppComponent {
 
   revealCellAndContentAround(rowIndex: number, colIndex: number): void {
     // Prevent user to click on the mine table if the game is already over.
-    if (this.gameOver)
+    if (this.gameOver || this.gameSucessfullyFinished)
       return;
 
     // Reveal the cell.
@@ -158,6 +160,8 @@ export class AppComponent {
       this.mineTableVisibility[rowIndex][colIndex] = 0;
       this.revealZeroCellsAroundGiveCell(rowIndex, colIndex);
     }
+
+    this.checkIfGameSucessfullyFinished();
   }
 
   /**
@@ -195,6 +199,24 @@ export class AppComponent {
       for (var colIndex = 0; colIndex < this.mineTableVisibility[rowIndex].length; colIndex++) {
         this.mineTableVisibility[rowIndex][colIndex] = 1;
       }
+    }
+  }
+
+  /**
+   * Checks if game is succesfully finished.
+   * Game is finished when all cells were opened except the cell which contains mines.
+   */
+  checkIfGameSucessfullyFinished(): void {
+    let numberOfClosedCells: number = 0;
+
+    for(let row = 0; row < this.numOfRows; row++) {
+      for(let col = 0; col < this.numOfCols; col++) {
+        numberOfClosedCells += (this.mineTableVisibility[row][col] == 0) ? 1 : 0;
+      }
+    }
+
+    if(numberOfClosedCells == this.numOfMinesInTable) {
+      this.gameSucessfullyFinished = true;
     }
   }
 
